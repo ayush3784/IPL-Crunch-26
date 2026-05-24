@@ -1,0 +1,364 @@
+/* iplDashboard.css — IPL Crunch '26 Dark Theme */
+
+/* ── Root Variables ─────────────────────────────────────── */
+:host {
+    --bg-dark:    #0d1117;
+    --bg-card:    #161b22;
+    --bg-card2:   #1c2128;
+    --border:     #30363d;
+    --gold:       #f4c430;
+    --green:      #2ecc40;
+    --red:        #ff4136;
+    --blue:       #0074d9;
+    --text:       #e6edf3;
+    --muted:      #8b949e;
+    --font-mono:  'Courier New', Courier, monospace;
+}
+
+/* ── Dashboard Container ────────────────────────────────── */
+.ipl-dashboard {
+    background: var(--bg-dark);
+    color: var(--text);
+    font-family: var(--font-mono);
+    min-height: 100vh;
+    padding: 0;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* ── Header ─────────────────────────────────────────────── */
+.dash-header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--gold);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.trophy { font-size: 2.5rem; }
+
+.dash-title {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--gold);
+    letter-spacing: 3px;
+    text-shadow: 0 0 20px rgba(244, 196, 48, 0.4);
+}
+
+.dash-subtitle {
+    margin: 4px 0 0;
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 1px;
+}
+
+.header-stats {
+    display: flex;
+    gap: 16px;
+}
+
+.stat-pill {
+    background: rgba(244, 196, 48, 0.1);
+    border: 1px solid var(--gold);
+    border-radius: 8px;
+    padding: 8px 16px;
+    text-align: center;
+}
+
+.stat-num {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--gold);
+}
+
+.stat-lbl {
+    display: block;
+    font-size: 0.65rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ── Tab Nav ─────────────────────────────────────────────── */
+.tab-nav {
+    display: flex;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+}
+
+.tab-btn {
+    padding: 14px 24px;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    border-bottom: 3px solid transparent;
+}
+
+.tab-btn:hover {
+    color: var(--text);
+    background: var(--bg-card2);
+}
+
+.tab-active {
+    color: var(--gold) !important;
+    border-bottom: 3px solid var(--gold) !important;
+    background: var(--bg-card2) !important;
+}
+
+/* ── Loading ─────────────────────────────────────────────── */
+.loading-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px;
+    color: var(--muted);
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 16px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Card Grid ───────────────────────────────────────────── */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    padding: 24px 24px 0;
+}
+
+.three-cols {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* ── Insight Cards ───────────────────────────────────────── */
+.insight-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.insight-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+.highlight-card {
+    border-color: var(--gold);
+    background: linear-gradient(135deg, rgba(244,196,48,0.08) 0%, var(--bg-card) 100%);
+}
+
+.powerplay-card { border-color: var(--green); }
+.middle-card    { border-color: var(--blue); }
+.death-card     { border-color: var(--gold); }
+
+.surprise-card {
+    border-color: #b10dc9;
+    background: linear-gradient(135deg, rgba(177,13,201,0.08), var(--bg-card));
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    text-align: left;
+}
+
+.full-width { grid-column: 1 / -1; }
+
+.insight-icon  { font-size: 2rem; margin-bottom: 8px; }
+.insight-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+.insight-value { font-size: 2rem; font-weight: 900; color: var(--gold); margin: 6px 0; }
+.insight-tag   { font-size: 0.7rem; color: var(--muted); }
+
+.myth-tag { color: var(--red); font-weight: 700; }
+
+.surprise-text { font-size: 0.88rem; line-height: 1.6; }
+
+/* ── Chart Cards ─────────────────────────────────────────── */
+.chart-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    margin: 16px 24px;
+}
+
+.chart-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 16px;
+    letter-spacing: 0.5px;
+}
+
+.chart-note {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin: 16px 0 0;
+    line-height: 1.6;
+}
+
+.small { font-size: 0.72rem; margin: -8px 0 12px; color: var(--muted); }
+
+/* ── Bar Chart ───────────────────────────────────────────── */
+.bar-chart { display: flex; flex-direction: column; gap: 8px; }
+
+.bar-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.bar-label {
+    min-width: 60px;
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-align: right;
+}
+
+.venue-label {
+    min-width: 180px;
+    text-align: right;
+    font-size: 0.7rem;
+}
+
+.bar-track {
+    flex: 1;
+    background: var(--bg-card2);
+    border-radius: 4px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.8s ease;
+    min-width: 4px;
+}
+
+.toss-bar { background: var(--gold); }
+
+.bar-value {
+    position: absolute;
+    right: 8px;
+    font-size: 0.7rem;
+    color: var(--text);
+    font-weight: 600;
+}
+
+.bar-baseline {
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--red);
+    margin-top: 8px;
+}
+
+.baseline-label { border-top: 1px dashed var(--red); padding-top: 4px; }
+
+/* ── Phase Chart ─────────────────────────────────────────── */
+.phase-chart {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    height: 220px;
+    padding: 16px;
+    background: var(--bg-card2);
+    border-radius: 8px;
+}
+
+.phase-col { display: flex; flex-direction: column; align-items: center; gap: 8px; flex: 1; }
+
+.phase-bar-wrap {
+    width: 80%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 200px;
+}
+
+.phase-bar {
+    width: 100%;
+    border-radius: 6px 6px 0 0;
+    transition: height 0.8s ease;
+    min-height: 10px;
+}
+
+.phase-name { font-size: 0.78rem; color: var(--muted); text-align: center; }
+.phase-runs { font-size: 0.85rem; font-weight: 700; color: var(--gold); }
+
+/* ── Performer Grid ──────────────────────────────────────── */
+.performer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+}
+
+/* ── Table ───────────────────────────────────────────────── */
+.table-wrapper { overflow-x: auto; }
+
+.ipl-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+}
+
+.ipl-table th {
+    background: var(--bg-dark);
+    color: var(--gold);
+    padding: 10px 12px;
+    text-align: left;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--gold);
+}
+
+.ipl-table td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+}
+
+.ipl-table tr:hover td { background: var(--bg-card2); }
+
+.rank-cell  { color: var(--muted); font-size: 0.75rem; width: 30px; }
+.name-cell  { color: var(--gold); font-weight: 600; }
+.score-cell { color: var(--green); font-weight: 700; }
+
+/* ── Footer ─────────────────────────────────────────────── */
+.dash-footer {
+    text-align: center;
+    padding: 16px;
+    font-size: 0.7rem;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    letter-spacing: 1px;
+}
