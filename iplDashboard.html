@@ -1,0 +1,217 @@
+<template>
+    <div class="ipl-dashboard">
+
+        <!-- ── Header ─────────────────────────────────────── -->
+        <div class="dash-header">
+            <div class="header-left">
+                <span class="trophy">🏏</span>
+                <div>
+                    <h1 class="dash-title">IPL CRUNCH '26</h1>
+                    <p class="dash-subtitle">Myths vs Data — Analytics by Ayush Vats</p>
+                </div>
+            </div>
+            <div class="header-stats">
+                <div class="stat-pill">
+                    <span class="stat-num">{totalMatches}</span>
+                    <span class="stat-lbl">Matches</span>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-num">17+</span>
+                    <span class="stat-lbl">Seasons</span>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-num">250K+</span>
+                    <span class="stat-lbl">Deliveries</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Tab Nav ────────────────────────────────────── -->
+        <div class="tab-nav">
+            <button class={tab1Class} onclick={switchTab} data-tab="toss">🎲 Toss Myth</button>
+            <button class={tab2Class} onclick={switchTab} data-tab="phase">⚡ Phase Impact</button>
+            <button class={tab3Class} onclick={switchTab} data-tab="performers">🏆 Top Performers</button>
+            <button class={tab4Class} onclick={switchTab} data-tab="venue">😲 Venue Insight</button>
+        </div>
+
+        <!-- ── Loading ────────────────────────────────────── -->
+        <template if:true={isLoading}>
+            <div class="loading-box">
+                <div class="spinner"></div>
+                <p>Crunching IPL data...</p>
+            </div>
+        </template>
+
+        <!-- ── TAB 1: Toss ────────────────────────────────── -->
+        <template if:true={showToss}>
+            <div class="card-grid">
+                <div class="insight-card highlight-card">
+                    <div class="insight-icon">🎲</div>
+                    <div class="insight-label">Toss Winner Wins Match</div>
+                    <div class="insight-value">{tossWonPct}%</div>
+                    <div class="insight-tag myth-tag">MYTH BUSTED — Coin Flip!</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-icon">🏏</div>
+                    <div class="insight-label">Chose to Bat — Win Rate</div>
+                    <div class="insight-value">{batWonPct}%</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-icon">🏟️</div>
+                    <div class="insight-label">Chose to Field — Win Rate</div>
+                    <div class="insight-value">{fieldWonPct}%</div>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h3 class="chart-title">Season-wise Toss Win Rate</h3>
+                <div class="bar-chart">
+                    <template for:each={tossSeasonData} for:item="s">
+                        <div key={s.season} class="bar-row">
+                            <span class="bar-label">{s.season}</span>
+                            <div class="bar-track">
+                                <div class="bar-fill toss-bar" style={s.barStyle}></div>
+                                <span class="bar-value">{s.winPct}%</span>
+                            </div>
+                        </div>
+                    </template>
+                    <div class="bar-baseline">
+                        <span class="baseline-label">— 50% baseline (coin flip)</span>
+                    </div>
+                </div>
+                <p class="chart-note">
+                    📌 The toss win rate hovers near 50% every season — <strong>toss provides no consistent advantage.</strong>
+                </p>
+            </div>
+        </template>
+
+        <!-- ── TAB 2: Phase Impact ─────────────────────────── -->
+        <template if:true={showPhase}>
+            <div class="card-grid three-cols">
+                <template for:each={phaseData} for:item="p">
+                    <div key={p.phase} class={p.cardClass}>
+                        <div class="insight-icon">{p.icon}</div>
+                        <div class="insight-label">{p.phase} Overs</div>
+                        <div class="insight-value">{p.avgRunsPer}</div>
+                        <div class="insight-tag">Avg runs / match</div>
+                    </div>
+                </template>
+            </div>
+
+            <div class="chart-card">
+                <h3 class="chart-title">Run Production by Phase</h3>
+                <div class="phase-chart">
+                    <template for:each={phaseData} for:item="p">
+                        <div key={p.phase} class="phase-col">
+                            <div class="phase-bar-wrap">
+                                <div class="phase-bar" style={p.barHeightStyle}></div>
+                            </div>
+                            <div class="phase-name">{p.phase}</div>
+                            <div class="phase-runs">{p.avgRunsPer} runs</div>
+                        </div>
+                    </template>
+                </div>
+                <p class="chart-note">
+                    📌 <strong>Death overs show the sharpest gap</strong> between winning and losing teams — mastering overs 16–20 is the real game-changer.
+                </p>
+            </div>
+        </template>
+
+        <!-- ── TAB 3: Performers ───────────────────────────── -->
+        <template if:true={showPerformers}>
+            <div class="performer-grid">
+                <div class="chart-card">
+                    <h3 class="chart-title">🏏 Top 10 Batters — Consistency Score</h3>
+                    <p class="chart-note small">Score = √(Avg per Innings × Strike Rate)</p>
+                    <div class="table-wrapper">
+                        <table class="ipl-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Batter</th>
+                                    <th>Runs</th>
+                                    <th>SR</th>
+                                    <th>Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={topBatters} for:item="b">
+                                    <tr key={b.batter}>
+                                        <td class="rank-cell">{b.rank}</td>
+                                        <td class="name-cell">{b.batter}</td>
+                                        <td>{b.totalRuns}</td>
+                                        <td>{b.strikeRate}</td>
+                                        <td class="score-cell">{b.consistencyScore}</td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <h3 class="chart-title">⚡ Top 10 Bowlers — Wickets</h3>
+                    <div class="table-wrapper">
+                        <table class="ipl-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Bowler</th>
+                                    <th>Wickets</th>
+                                    <th>Economy</th>
+                                    <th>Matches</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={topBowlers} for:item="b">
+                                    <tr key={b.bowler}>
+                                        <td class="rank-cell">{b.rank}</td>
+                                        <td class="name-cell">{b.bowler}</td>
+                                        <td class="score-cell">{b.wickets}</td>
+                                        <td>{b.economy}</td>
+                                        <td>{b.matches}</td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- ── TAB 4: Venue Insight ────────────────────────── -->
+        <template if:true={showVenue}>
+            <div class="insight-card surprise-card full-width">
+                <div class="insight-icon">😲</div>
+                <div class="surprise-text">
+                    <strong>SURPRISE INSIGHT:</strong> Venue chase win % swings by 25%+ across stadiums —
+                    <strong>the stadium is a stronger predictor than the toss!</strong>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h3 class="chart-title">Chase Win % by Venue</h3>
+                <div class="bar-chart">
+                    <template for:each={venueData} for:item="v">
+                        <div key={v.venue} class="bar-row">
+                            <span class="bar-label venue-label">{v.venueName}</span>
+                            <div class="bar-track">
+                                <div class="bar-fill" style={v.barStyle}></div>
+                                <span class="bar-value">{v.chaseWinPct}%</span>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <p class="chart-note">
+                    📌 Green = &gt;55% chase wins. Red = &lt;45%. The 50% dotted line is what you'd expect if venue didn't matter.
+                </p>
+            </div>
+        </template>
+
+        <!-- ── Footer ─────────────────────────────────────── -->
+        <div class="dash-footer">
+            IPL Crunch '26 by Wooble &nbsp;|&nbsp; Ayush Vats &nbsp;|&nbsp; MIET Meerut &nbsp;|&nbsp;
+            Data: Cricsheet.org
+        </div>
+    </div>
+</template>
