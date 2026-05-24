@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>IPL Delivery</label>
+    <pluralLabel>IPL Deliveries</pluralLabel>
+    <nameField>
+        <label>Delivery Name</label>
+        <type>AutoNumber</type>
+        <displayFormat>DEL-{0000000}</displayFormat>
+    </nameField>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <sharingModel>ReadWrite</sharingModel>
+
+    <fields>
+        <fullName>Match__c</fullName>
+        <label>Match</label>
+        <type>Lookup</type>
+        <referenceTo>Match__c</referenceTo>
+        <relationshipName>Deliveries</relationshipName>
+        <relationshipLabel>Deliveries</relationshipLabel>
+    </fields>
+
+    <fields>
+        <fullName>Inning__c</fullName>
+        <label>Inning</label>
+        <type>Number</type>
+        <precision>1</precision>
+        <scale>0</scale>
+    </fields>
+
+    <fields>
+        <fullName>Over__c</fullName>
+        <label>Over</label>
+        <type>Number</type>
+        <precision>2</precision>
+        <scale>0</scale>
+    </fields>
+
+    <fields>
+        <fullName>Ball__c</fullName>
+        <label>Ball</label>
+        <type>Number</type>
+        <precision>2</precision>
+        <scale>0</scale>
+    </fields>
+
+    <fields>
+        <fullName>Batsman__c</fullName>
+        <label>Batsman</label>
+        <type>Text</type>
+        <length>100</length>
+    </fields>
+
+    <fields>
+        <fullName>Bowler__c</fullName>
+        <label>Bowler</label>
+        <type>Text</type>
+        <length>100</length>
+    </fields>
+
+    <fields>
+        <fullName>Batsman_Runs__c</fullName>
+        <label>Batsman Runs</label>
+        <type>Number</type>
+        <precision>2</precision>
+        <scale>0</scale>
+    </fields>
+
+    <fields>
+        <fullName>Total_Runs__c</fullName>
+        <label>Total Runs</label>
+        <type>Number</type>
+        <precision>2</precision>
+        <scale>0</scale>
+    </fields>
+
+    <fields>
+        <fullName>Is_Wicket__c</fullName>
+        <label>Is Wicket</label>
+        <type>Checkbox</type>
+        <defaultValue>false</defaultValue>
+    </fields>
+
+    <fields>
+        <fullName>Dismissal_Kind__c</fullName>
+        <label>Dismissal Kind</label>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <value><fullName>caught</fullName><label>Caught</label></value>
+                <value><fullName>bowled</fullName><label>Bowled</label></value>
+                <value><fullName>lbw</fullName><label>LBW</label></value>
+                <value><fullName>run out</fullName><label>Run Out</label></value>
+                <value><fullName>stumped</fullName><label>Stumped</label></value>
+                <value><fullName>hit wicket</fullName><label>Hit Wicket</label></value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+
+    <fields>
+        <fullName>Phase__c</fullName>
+        <label>Over Phase</label>
+        <type>Formula</type>
+        <formula>
+            IF(Over__c &lt;= 5, 'Powerplay',
+            IF(Over__c &lt;= 14, 'Middle',
+            'Death'))
+        </formula>
+        <returnType>Text</returnType>
+    </fields>
+
+</CustomObject>
