@@ -3,9 +3,13 @@ Analytics Dashboard built on Salesforce Platform
 
 Submission for Wooble IPL CRUNCH '26 | By Ayush Vats | MIET Meerut
 
+------
+
 
 🚀 Why Salesforce?
 Most submissions will use Python or Excel. This project uses the full Salesforce stack — Custom Objects, Apex, SOQL, and LWC — to prove that enterprise platforms can power sports analytics just as effectively as traditional data tools.
+
+-------
 
 🏗️ Architecture
 CSV Data (Cricsheet.org)
@@ -47,12 +51,18 @@ ipl-sf-crunch-26/
         ├── iplDashboard.css
         └── iplDashboard.js-meta.xml
 
+        ---------
+
 ⚙️ Setup Instructions
 Prerequisites
+
+-----
 
 Salesforce Developer Edition org (free at developer.salesforce.com)
 Salesforce CLI (sf or sfdx)
 VS Code + Salesforce Extension Pack
+
+---------
 
 Step 1: Clone & Authenticate
 bashgit clone https://github.com/ayush3784/ipl-sf-crunch-26
@@ -62,10 +72,14 @@ Step 2: Deploy to Org
 bashsf project deploy start --target-org ipl-org
 Step 3: Load Data
 
+---------
+
 Download matches.csv and deliveries.csv from Cricsheet.org
 In Salesforce: Setup → Data Import Wizard
 Import matches.csv → Match__c object
 Import deliveries.csv → Delivery__c object (map match_id → Match__c lookup)
+
+---------
 
 Step 4: Add Dashboard to App
 
@@ -74,21 +88,41 @@ Create new Lightning App Page
 Drag IPL Dashboard component onto the page
 Activate & view!
 
+---------
+
 
 📊 Four Analyses
 🎲 Analysis 1 — The Toss Myth
 SOQL-powered toss win rate calculation across all seasons.
 Finding: Toss winner wins only ~51% of matches — statistically a coin flip.
+
+-------
+
 ⚡ Analysis 2 — Phase Impact
 Aggregate runs per phase per match using formula field Phase__c.
 Finding: Death overs (16–20) show the biggest gap between winners and losers.
+
+--------
+
 🏆 Analysis 3 — True Top Performers
 Consistency Score = √(Avg per Innings × Strike Rate) via Apex computation.
 Finding: Consistency rankings differ significantly from raw runs/wickets leaders.
+
+--------
+
 😲 Analysis 4 — Venue Insight (Surprise)
 Venue-wise chasing win % computed in Apex using full match dataset.
 Finding: Chase win rate swings from 40% to 65%+ based purely on venue — venue matters more than toss.
 
+---------
+
 💡 Key Insight That Surprised Me
 
+---------
+
 The stadium you play at is a stronger predictor of match outcome than the toss decision. At certain venues, chasing teams win 65%+ of matches — yet captains still make toss decisions without factoring in venue-specific history.
+
+--------
+
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/5c7dd463-48b5-4102-a6e1-e4981202d925" />
+
