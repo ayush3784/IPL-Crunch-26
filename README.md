@@ -51,7 +51,6 @@ ipl-sf-crunch-26/
         ├── iplDashboard.css
         └── iplDashboard.js-meta.xml
 
-        ---------
 
 ⚙️ Setup Instructions
 Prerequisites
