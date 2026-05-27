@@ -123,5 +123,6 @@ The stadium you play at is a stronger predictor of match outcome than the toss d
 
 --------
 
-<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/5c7dd463-48b5-4102-a6e1-e4981202d925" />
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/4f64362a-e8ba-49ca-8297-6c38c9b51bfe" />
+
 
