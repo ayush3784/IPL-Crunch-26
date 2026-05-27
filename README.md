@@ -1,4 +1,4 @@
-🏏 IPL Crunch '26 — Salesforce Edition
+🏏 Pitchpulse AI - Real time IPL Intelligence and performance Analytics by IPL Crunch '26 — Salesforce Edition
 Analytics Dashboard built on Salesforce Platform
 
 Submission for Wooble IPL CRUNCH '26 | By Ayush Vats | MIET Meerut
